@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bkgrnd"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout03"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/ImageView_MenuHeader_Settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/quizicon" >
+        </ImageView>
+
+        <TextView
+            android:id="@+id/TextView013"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="fill_horizontal|center"
+            android:shadowColor="@android:color/white"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="10"
+            android:text="@string/help"
+            android:textColor="@color/menu_color"
+            android:textSize="@dimen/menu_item_size" >
+
+        </TextView>
+
+        <ImageView
+            android:id="@+id/ImageView_MenuHeader2b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="right|center_vertical"
+            android:src="@drawable/quizicon" >
+        </ImageView>
+    </RelativeLayout>
+
+
+</LinearLayout>

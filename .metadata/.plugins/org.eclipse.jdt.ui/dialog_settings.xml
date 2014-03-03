@@ -20,10 +20,10 @@
 			<item value="11" key="includeMask"/>
 			<item value="2" key="limitTo"/>
 			<item value="0" key="scope"/>
-			<item value="" key="javaElement"/>
 			<item value="white" key="pattern"/>
-			<item value="0" key="matchLocations"/>
+			<item value="" key="javaElement"/>
 			<item value="4" key="searchFor"/>
+			<item value="0" key="matchLocations"/>
 			<item value="false" key="isCaseSensitive"/>
 			<list key="workingSets">
 			</list>
@@ -32,19 +32,19 @@
 			<item value="11" key="includeMask"/>
 			<item value="2" key="limitTo"/>
 			<item value="0" key="scope"/>
-			<item value="=TriviaQuiz/src&lt;com.androidbook.triviaquiz{QuizScoresActivity.java[QuizScoresActivity" key="javaElement"/>
 			<item value="com.androidbook.triviaquiz.QuizScoresActivity" key="pattern"/>
-			<item value="0" key="matchLocations"/>
+			<item value="=TriviaQuiz/src&lt;com.androidbook.triviaquiz{QuizScoresActivity.java[QuizScoresActivity" key="javaElement"/>
 			<item value="0" key="searchFor"/>
+			<item value="0" key="matchLocations"/>
 			<item value="true" key="isCaseSensitive"/>
 			<list key="workingSets">
 			</list>
 		</section>
 	</section>
-	<section name="org.eclipse.ltk.ui.refactoring.settings">
+	<section name="quick_assist_proposal_size">
 	</section>
 	<section name="RenameInformationPopup">
 	</section>
-	<section name="quick_assist_proposal_size">
+	<section name="org.eclipse.ltk.ui.refactoring.settings">
 	</section>
 </section>

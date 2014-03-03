@@ -74,27 +74,7 @@
                 android:maxLines="1"
                 android:inputType="textPersonName" >
             </EditText>
-             <TextView
-                android:id="@+id/PasswordLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/settings_pwd_not_set" >
-            </TextView>
-
-            <Button
-                android:id="@+id/Button_Password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/settings_button_pwd" >
-
-            </Button>
-                
-             <TextView
-                android:id="@+id/PasswordLabel2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/settings_password2" >
-            </TextView>           
+            
         </LinearLayout>
     </ScrollView>
 
