@@ -7,4 +7,5 @@
 	<dimen name="splash_fontsize_body">5pt</dimen>
 	<dimen name="splash_spacing">3pt</dimen>
 	<dimen name="menu_item_size">16pt</dimen>
+	<dimen name="score_size">6pt</dimen>
 </resources>

@@ -5,4 +5,7 @@
     <color name="versionbackgroundcolor">#000066</color>
     <color name="menu_color">#FFFF0F</color>
     <color name="menu_glow">#F00</color>
+    <color name="score_color">@android:color/white</color>
+	<color name="tab_active">#000066</color>
+	<color name="tab_inactive">#F00</color>
 </resources>
