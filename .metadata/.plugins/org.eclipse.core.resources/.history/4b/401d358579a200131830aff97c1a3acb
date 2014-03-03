@@ -27,13 +27,12 @@ public class QuizScoresActivity extends Activity {
 		
 		TabHost host = (TabHost) findViewById(R.id.Tabhost1);
 		
-		
-		/**TabWidget tabwidget=host.getTabWidget();
+		TabWidget tabwidget=host.getTabWidget();
 		for(int i=0;i<tabwidget.getChildCount();i++){
 		    TextView tv=(TextView) tabwidget.getChildAt(i).findViewById(android.R.id.title);
-		    tv.setTextColor(this.getResources().getColorStateList(R.color.menu_color));
-		}*/
-		host.setup();
+		    /**tv.setTextColor(this.getResources().getColorStateList(R.color.menu_color));*/
+		}
+		/**host.setup();
 		
 		TabSpec allScoresTab = host.newTabSpec("allTab");
 		allScoresTab.setIndicator(getResources().getString(R.string.all_scores));
@@ -44,7 +43,7 @@ public class QuizScoresActivity extends Activity {
 		friendsScoresTab.setIndicator(getResources().getString(R.string.friends_scores),
 				getResources().getDrawable(android.R.drawable.star_on));
 		friendsScoresTab.setContent(R.id.ScrollViewFriendsScores);
-		host.addTab(friendsScoresTab);
+		host.addTab(friendsScoresTab);*/
 	
 		
 		

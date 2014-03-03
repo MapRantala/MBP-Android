@@ -22,4 +22,5 @@
 <fullyQualifiedTypeName name="com.androidbook.triviaquiz.R.layout"/>
 <fullyQualifiedTypeName name="android.view.View"/>
 <fullyQualifiedTypeName name="com.androidbook.triviaquiz.R.id"/>
+<fullyQualifiedTypeName name="android.widget.TabWidget"/>
 </qualifiedTypeNameHistroy>
