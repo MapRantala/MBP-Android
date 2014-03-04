@@ -1,0 +1,47 @@
+package com.androidbook.triviaquiz;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
+public class QuizSettingsActivity extends Activity {
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.settings);
+		initNicknameEntry();
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.quiz_settings, menu);
+		return true;
+	}
+	
+	private void initNicknameEntry(){
+		final EditText nicknameText = (EditText) findViewById(R.id.
+				EditText_NickName);
+	
+		nicknameText.setOnKeyListener(new View.OnKeyListener(){
+		public boolean onKey(View v, int keyCode, KeyEvent event) {
+			if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+					(keyCode == KeyEvent.KEYCODE_ENTER)){
+				String strNicknameToSave = nicknameText.getText().toString();
+				//TODO: Save Nickname setting (strNicknameToSave)
+		       }
+			return true;
+		}
+		});
+	}
+	
+	private void initDatePicker{
+		Button pickDate = (Button) findViewById(R.id.Button_DOB);
+		
+	} //private void initDAtePicker
+}
