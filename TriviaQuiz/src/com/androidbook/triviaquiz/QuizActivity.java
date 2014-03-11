@@ -10,7 +10,7 @@ public class QuizActivity extends Activity {
 	public static final String GAME_PREFERENCES_PASSWORD = "Password";
 	public static final String GAME_PREFERENCES_DOB = "DOB";
 	public static final String GAME_PREFERENCES_GENDER = "Gender";
-
+	public static final String GAME_PREFERENCES_AVATAR = "Avatar"; // String URL 
 	
     public static final String GAME_PREFERENCES_SCORE = "Score"; // Integer
     public static final String GAME_PREFERENCES_CURRENT_QUESTION = "CurQuestion"; // Integer

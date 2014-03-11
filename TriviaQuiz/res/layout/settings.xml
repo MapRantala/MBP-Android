@@ -59,6 +59,25 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
             
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height ="wrap_content"
+                android:orientation="horizontal" >
+                
+                <ImageButton 
+                    android:id="@+id/ImageButton_Avatar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:maxWidth="75px"
+                    android:maxHeight="75px">
+                </ImageButton>
+                
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
             <TextView
                 android:id="@+id/NicknameLabel"
                 android:layout_width="wrap_content"
@@ -76,6 +95,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
             </EditText>
+				</LinearLayout>
+            </LinearLayout>
            <TextView                
                 android:id="@+id/eMailLabel"
                 android:layout_width="wrap_content"

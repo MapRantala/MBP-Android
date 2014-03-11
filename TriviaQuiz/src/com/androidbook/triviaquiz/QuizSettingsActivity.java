@@ -1,16 +1,22 @@
 package com.androidbook.triviaquiz;
 
+import java.io.File;
 import java.util.Calendar;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore.Images.Media;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
@@ -26,6 +32,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,7 +47,8 @@ public class QuizSettingsActivity extends Activity {
 //	public static final String GAME_PREFERENCES_GENDER = "Gender";
 	static final int DATE_DIALOG_ID = 0;
 	static final int PASSWORD_DIALOG_ID = 1;
-	
+    static final int TAKE_AVATAR_CAMERA_REQUEST = 1;
+    static final int TAKE_AVATAR_GALLERY_REQUEST = 2;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +56,8 @@ public class QuizSettingsActivity extends Activity {
 		setContentView(R.layout.settings);
         // Retrieve the shared preferences
         mGameSettings = getSharedPreferences(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES, Context.MODE_PRIVATE);
+        // Initialize the avatar button
+        initAvatar();
         // Initialize the nickname entry
         initNicknameEntry();
         // Initialize the email entry
@@ -61,6 +71,123 @@ public class QuizSettingsActivity extends Activity {
 		
 	}
 
+	  @Override
+	    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+	        switch (requestCode) {
+	        case TAKE_AVATAR_CAMERA_REQUEST:
+
+	            if (resultCode == Activity.RESULT_CANCELED) {
+	                // Avatar camera mode was canceled.
+	            } else if (resultCode == Activity.RESULT_OK) {
+
+	                // Took a picture, use the downsized camera image provided by default
+	                Bitmap cameraPic = (Bitmap) data.getExtras().get("data");
+	                if (cameraPic != null) {
+	                    try {
+	                        saveAvatar(cameraPic);
+	                    } catch (Exception e) {
+	                        Log.e(com.androidbook.triviaquiz.QuizActivity.DEBUG_TAG, "saveAvatar() with camera image failed.", e);
+	                    }
+	                }
+	            }
+	            break;
+	        case TAKE_AVATAR_GALLERY_REQUEST:
+
+	            if (resultCode == Activity.RESULT_CANCELED) {
+	                // Avatar gallery request mode was canceled.
+	            } else if (resultCode == Activity.RESULT_OK) {
+
+	                // Get image picked
+	                Uri photoUri = data.getData();
+	                if (photoUri != null) {
+	                    try {
+	                        int maxLength = 75;
+	                        // Full size image likely will be large. Let's scale the graphic to a more appropriate size for an avatar
+	                        Bitmap galleryPic = Media.getBitmap(getContentResolver(), photoUri);
+	                        Bitmap scaledGalleryPic = createScaledBitmapKeepingAspectRatio(galleryPic, maxLength);
+	                        saveAvatar(scaledGalleryPic);
+	                    } catch (Exception e) {
+	                        Log.e(com.androidbook.triviaquiz.QuizActivity.DEBUG_TAG, "saveAvatar() with gallery picker failed.", e);
+	                    }
+	                }
+	            }
+	            break;
+	        }
+	    }
+	  
+
+	   /**
+	     * Scale a Bitmap, keeping its aspect ratio
+	     * 
+	     * @param bitmap
+	     *            Bitmap to scale
+	     * @param maxSide
+	     *            Maximum length of either side
+	     * @return a new, scaled Bitmap
+	     */
+	    private Bitmap createScaledBitmapKeepingAspectRatio(Bitmap bitmap, int maxSide) {
+	        int orgHeight = bitmap.getHeight();
+	        int orgWidth = bitmap.getWidth();
+
+	        // scale to no longer any either side than 75px
+	        int scaledWidth = (orgWidth >= orgHeight) ? maxSide : (int) ((float) maxSide * ((float) orgWidth / (float) orgHeight));
+	        int scaledHeight = (orgHeight >= orgWidth) ? maxSide : (int) ((float) maxSide * ((float) orgHeight / (float) orgWidth));
+
+	        // create the scaled bitmap
+	        Bitmap scaledGalleryPic = Bitmap.createScaledBitmap(bitmap, scaledWidth, scaledHeight, true);
+	        return scaledGalleryPic;
+	    }
+
+	    private void saveAvatar(Bitmap avatar) {
+	        String strAvatarFilename = "avatar.jpg";
+	        try {
+	            avatar.compress(CompressFormat.JPEG, 100, openFileOutput(strAvatarFilename, MODE_PRIVATE));
+	        } catch (Exception e) {
+	            Log.e(com.androidbook.triviaquiz.QuizActivity.DEBUG_TAG, "Avatar compression and save failed.", e);
+	        }
+
+	        Uri imageUriToSaveCameraImageTo = Uri.fromFile(new File(QuizSettingsActivity.this.getFilesDir(), strAvatarFilename));
+
+	        Editor editor = mGameSettings.edit();
+	        editor.putString(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_AVATAR, imageUriToSaveCameraImageTo.getPath());
+	        editor.commit();
+
+	        // Update the settings screen
+	        ImageButton avatarButton = (ImageButton) findViewById(R.id.ImageButton_Avatar);
+	        String strAvatarUri = mGameSettings.getString(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_AVATAR, "android.resource://com.androidbook.triviaquiz13/drawable/avatar");
+	        Uri imageUri = Uri.parse(strAvatarUri);
+	        avatarButton.setImageURI(null); // Workaround for refreshing an ImageButton, which tries to cache the previous image Uri. Passing null effectively resets it.
+	        avatarButton.setImageURI(imageUri);
+	    }
+	    
+    private void initAvatar(){
+    	ImageButton avatarButton = (ImageButton) findViewById(R.id.ImageButton_Avatar);
+    	
+    	avatarButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+                String strAvatarPrompt = "Take your picture to store as your avatar!";
+                Intent pictureIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(Intent.createChooser(pictureIntent, strAvatarPrompt), TAKE_AVATAR_CAMERA_REQUEST);			
+			}
+		});
+    	
+    	avatarButton.setOnLongClickListener(new View.OnLongClickListener() {
+			
+			@Override
+			public boolean onLongClick(View v) {
+				// TODO Auto-generated method stub
+				String strAvatarPrompt = "Choose a picture to use as your avatar!";
+				Intent pickPhoto = new Intent(Intent.ACTION_PICK);
+				pickPhoto.setType("image/*");
+				startActivityForResult(Intent.createChooser(pickPhoto, strAvatarPrompt), 
+						TAKE_AVATAR_GALLERY_REQUEST);
+				return true;
+			}
+		});
+    }
     @Override
     protected void onDestroy() {
     	String DEBUG_TAG = "Quiz Activity";
