@@ -40,4 +40,8 @@
     <string name="gender_neutral">Prefer Not To Say</string>
     <string name="set_password_string">Set Password</string>
  
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="no_questions">No more questions available. Try back later.</string>
+        
 </resources>

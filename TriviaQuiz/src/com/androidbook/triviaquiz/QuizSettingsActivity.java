@@ -32,12 +32,12 @@ import android.widget.Toast;
 
 public class QuizSettingsActivity extends Activity {
 	SharedPreferences mGameSettings;
-	public static final String GAME_PREFERENCES = "GamePrefs";
-	public static final String GAME_PREFERENCES_NICKNAME = "Nickname";
-	public static final String GAME_PREFERENCES_EMAIL = "Email";
-	public static final String GAME_PREFERENCES_PASSWORD = "Password";
-	public static final String GAME_PREFERENCES_DOB = "DOB";
-	public static final String GAME_PREFERENCES_GENDER = "Gender";
+//	public static final String GAME_PREFERENCES = "GamePrefs";
+//	public static final String GAME_PREFERENCES_NICKNAME = "Nickname";
+//	public static final String GAME_PREFERENCES_EMAIL = "Email";
+//	public static final String GAME_PREFERENCES_PASSWORD = "Password";
+//	public static final String GAME_PREFERENCES_DOB = "DOB";
+//	public static final String GAME_PREFERENCES_GENDER = "Gender";
 	static final int DATE_DIALOG_ID = 0;
 	static final int PASSWORD_DIALOG_ID = 1;
 	
@@ -47,7 +47,7 @@ public class QuizSettingsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.settings);
         // Retrieve the shared preferences
-        mGameSettings = getSharedPreferences(GAME_PREFERENCES, Context.MODE_PRIVATE);
+        mGameSettings = getSharedPreferences(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES, Context.MODE_PRIVATE);
         // Initialize the nickname entry
         initNicknameEntry();
         // Initialize the email entry
@@ -66,14 +66,14 @@ public class QuizSettingsActivity extends Activity {
     	String DEBUG_TAG = "Quiz Activity";
     	
         Log.d(DEBUG_TAG, "SHARED PREFERENCES");
-        Log.d(DEBUG_TAG, "Nickname is: " + mGameSettings.getString(GAME_PREFERENCES_NICKNAME, "Not set"));
-        Log.d(DEBUG_TAG, "Email is: " + mGameSettings.getString(GAME_PREFERENCES_EMAIL, "Not set"));
-        Log.d(DEBUG_TAG, "Gender (M=1, F=2, U=0) is: " + mGameSettings.getInt(GAME_PREFERENCES_GENDER, 0));
+        Log.d(DEBUG_TAG, "Nickname is: " + mGameSettings.getString(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_NICKNAME, "Not set"));
+        Log.d(DEBUG_TAG, "Email is: " + mGameSettings.getString(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_EMAIL, "Not set"));
+        Log.d(DEBUG_TAG, "Gender (M=1, F=2, U=0) is: " + mGameSettings.getInt(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_GENDER, 0));
         // We are not saving the password yet
-        Log.d(DEBUG_TAG, "Password is: " + mGameSettings.getString(GAME_PREFERENCES_PASSWORD, "Not set"));
+        Log.d(DEBUG_TAG, "Password is: " + mGameSettings.getString(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_PASSWORD, "Not set"));
         // We are not saving the date of birth yet
         Log.d(DEBUG_TAG, "DOB is: "
-                + DateFormat.format("MMMM dd, yyyy", mGameSettings.getLong(GAME_PREFERENCES_DOB, 0)));
+                + DateFormat.format("MMMM dd, yyyy", mGameSettings.getLong(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_DOB, 0)));
         super.onDestroy();
     }
     
@@ -86,8 +86,8 @@ public class QuizSettingsActivity extends Activity {
 	
 	private void initNicknameEntry(){
 		final EditText nicknameText = (EditText) findViewById(R.id.EditText_NickName);
-        if (mGameSettings.contains(GAME_PREFERENCES_NICKNAME)) {
-            nicknameText.setText(mGameSettings.getString(GAME_PREFERENCES_NICKNAME, ""));
+        if (mGameSettings.contains(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_NICKNAME)) {
+            nicknameText.setText(mGameSettings.getString(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_NICKNAME, ""));
         }
 		nicknameText.setOnKeyListener(new View.OnKeyListener(){
 		public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -95,7 +95,7 @@ public class QuizSettingsActivity extends Activity {
 					(keyCode == KeyEvent.KEYCODE_ENTER)){
 				String strNicknameToSave = nicknameText.getText().toString();
 				Editor editor = mGameSettings.edit();
-                editor.putString(GAME_PREFERENCES_NICKNAME, strNicknameToSave);
+                editor.putString(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_NICKNAME, strNicknameToSave);
                 editor.commit();
                 return true;
 		       }
@@ -110,14 +110,14 @@ public class QuizSettingsActivity extends Activity {
     private void initEmailEntry() {
         // Save Email
         final EditText emailText = (EditText) findViewById(R.id.EditText_Email);
-        if (mGameSettings.contains(GAME_PREFERENCES_EMAIL)) {
-            emailText.setText(mGameSettings.getString(GAME_PREFERENCES_EMAIL, ""));
+        if (mGameSettings.contains(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_EMAIL)) {
+            emailText.setText(mGameSettings.getString(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_EMAIL, ""));
         }
         emailText.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     Editor editor = mGameSettings.edit();
-                    editor.putString(GAME_PREFERENCES_EMAIL, emailText.getText().toString());
+                    editor.putString(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_EMAIL, emailText.getText().toString());
                     editor.commit();
                     return true;
                 }
@@ -129,8 +129,8 @@ public class QuizSettingsActivity extends Activity {
 	private void initDatePicker(){
         // Set password info
         TextView dobInfo = (TextView) findViewById(R.id.TextView_DOB_Info);
-        if (mGameSettings.contains(GAME_PREFERENCES_DOB)) {
-            dobInfo.setText(DateFormat.format("MMMM dd, yyyy", mGameSettings.getLong(GAME_PREFERENCES_DOB, 0)));
+        if (mGameSettings.contains(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_DOB)) {
+            dobInfo.setText(DateFormat.format("MMMM dd, yyyy", mGameSettings.getLong(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_DOB, 0)));
         } else {
             dobInfo.setText(R.string.settings_dob_not_set);
         }
@@ -156,7 +156,7 @@ public class QuizSettingsActivity extends Activity {
 					long dtDOB = dateOfBirth.toMillis(true);
 					//dob.setText(DateFormat.format("MMMM dd, yyyy",dtDOB));
 					Editor editor = mGameSettings.edit();
-					editor.putLong(GAME_PREFERENCES_DOB, dtDOB);
+					editor.putLong(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_DOB, dtDOB);
 					editor.commit();
 						} //public void
 					},0,0,0);
@@ -207,7 +207,7 @@ public class QuizSettingsActivity extends Activity {
                     String strPassword2 = p2.getText().toString();
                     if (strPassword1.equals(strPassword2)) {
                         Editor editor = mGameSettings.edit();
-                        editor.putString(GAME_PREFERENCES_PASSWORD, strPassword1);
+                        editor.putString(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_PASSWORD, strPassword1);
                         editor.commit();
                         passwordInfo.setText(R.string.settings_pwd_set);
                     } else {
@@ -232,8 +232,8 @@ public class QuizSettingsActivity extends Activity {
 		case DATE_DIALOG_ID:
 			DatePickerDialog dateDialog = (DatePickerDialog) dialog;
 			int iDay, iMonth, iYear;
-			if (mGameSettings.contains(GAME_PREFERENCES_DOB)){
-				long msBirthDate = mGameSettings.getLong(GAME_PREFERENCES_DOB, 0);
+			if (mGameSettings.contains(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_DOB)){
+				long msBirthDate = mGameSettings.getLong(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_DOB, 0);
 				Time dateOfBirth = new Time();
 				dateOfBirth.set(msBirthDate);
 				iDay = dateOfBirth.monthDay;
@@ -253,7 +253,7 @@ public class QuizSettingsActivity extends Activity {
 	private void initPasswordChooser(){
         // Set password info
         TextView passwordInfo = (TextView) findViewById(R.id.TextView_Password_Info);
-        if (mGameSettings.contains(GAME_PREFERENCES_PASSWORD)) {
+        if (mGameSettings.contains(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_PASSWORD)) {
             passwordInfo.setText(R.string.settings_pwd_set);
         } else {
             passwordInfo.setText(R.string.settings_pwd_not_set);
@@ -276,15 +276,15 @@ public class QuizSettingsActivity extends Activity {
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner.setAdapter(adapter);
 		spinner.setSelection(0);
-        if (mGameSettings.contains(GAME_PREFERENCES_GENDER)) {
-            spinner.setSelection(mGameSettings.getInt(GAME_PREFERENCES_GENDER, 0));
+        if (mGameSettings.contains(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_GENDER)) {
+            spinner.setSelection(mGameSettings.getInt(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_GENDER, 0));
         }		
 		// Handle spinner selections
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View itemSelected, int selectedItemPosition,
                     long selectedId) {
                Editor editor = mGameSettings.edit();
-               editor.putInt(GAME_PREFERENCES_GENDER, selectedItemPosition);
+               editor.putInt(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_GENDER, selectedItemPosition);
                editor.commit();
             	Toast.makeText(QuizSettingsActivity.this, itemSelected.toString(), Toast.LENGTH_LONG).show();
             }

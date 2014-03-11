@@ -24,7 +24,9 @@ public final class R {
         public static final int score_color=0x7f080005;
         public static final int tab_active=0x7f080006;
         public static final int tab_inactive=0x7f080007;
-        public static final int tab_text=0x7f080008;
+        public static final int tab_text=0x7f08000a;
+        public static final int title_color=0x7f080008;
+        public static final int title_glow=0x7f080009;
         public static final int titlecolor=0x7f080000;
         public static final int versionbackgroundcolor=0x7f080002;
         public static final int versiontextcolor=0x7f080001;
@@ -38,6 +40,7 @@ public final class R {
          */
         public static final int activity_horizontal_margin=0x7f090000;
         public static final int activity_vertical_margin=0x7f090001;
+        public static final int game_question_size=0x7f090007;
         public static final int menu_item_size=0x7f090005;
         public static final int score_size=0x7f090006;
         public static final int splash_fontsize_body=0x7f090003;
@@ -49,66 +52,76 @@ public final class R {
         public static final int divider=0x7f020001;
         public static final int half=0x7f020002;
         public static final int ic_launcher=0x7f020003;
-        public static final int quizicon=0x7f020004;
-        public static final int splash1=0x7f020005;
-        public static final int splash2=0x7f020006;
-        public static final int splash3=0x7f020007;
-        public static final int splash4=0x7f020008;
-        public static final int textured=0x7f020009;
+        public static final int noquestion=0x7f020004;
+        public static final int quizicon=0x7f020005;
+        public static final int splash1=0x7f020006;
+        public static final int splash2=0x7f020007;
+        public static final int splash3=0x7f020008;
+        public static final int splash4=0x7f020009;
+        public static final int textured=0x7f02000a;
     }
     public static final class id {
-        public static final int Birthdatelabel=0x7f0d0021;
-        public static final int Button_DOB=0x7f0d0022;
-        public static final int Button_Password=0x7f0d001f;
-        public static final int EditText_Email=0x7f0d001d;
-        public static final int EditText_NickName=0x7f0d001b;
-        public static final int EditText_Pwd1=0x7f0d000a;
-        public static final int EditText_Pwd2=0x7f0d000c;
-        public static final int Genderlabel=0x7f0d0024;
-        public static final int ImageView_MenuBottom=0x7f0d0007;
-        public static final int ImageView_MenuHeader=0x7f0d0005;
-        public static final int ImageView_MenuHeader2=0x7f0d0003;
-        public static final int ImageView_MenuHeader2b=0x7f0d0018;
-        public static final int ImageView_MenuHeader_Help=0x7f0d0001;
-        public static final int ImageView_MenuHeader_Score=0x7f0d000e;
-        public static final int ImageView_MenuHeader_Settings=0x7f0d0016;
-        public static final int ListView_Menu=0x7f0d0008;
-        public static final int NicknameLabel=0x7f0d001a;
-        public static final int Password_text=0x7f0d0009;
-        public static final int Password_text2=0x7f0d000b;
+        public static final int Birthdatelabel=0x7f0d002a;
+        public static final int Button_DOB=0x7f0d002b;
+        public static final int Button_No=0x7f0d0007;
+        public static final int Button_Password=0x7f0d0028;
+        public static final int Button_Yes=0x7f0d0006;
+        public static final int EditText_Email=0x7f0d0026;
+        public static final int EditText_NickName=0x7f0d0024;
+        public static final int EditText_Pwd1=0x7f0d0013;
+        public static final int EditText_Pwd2=0x7f0d0015;
+        public static final int Genderlabel=0x7f0d002d;
+        public static final int ImageSwitcher_QuestionImage=0x7f0d0004;
+        public static final int ImageView_Header=0x7f0d0001;
+        public static final int ImageView_Header2=0x7f0d0002;
+        public static final int ImageView_Header3=0x7f0d0008;
+        public static final int ImageView_Header4=0x7f0d0009;
+        public static final int ImageView_MenuBottom=0x7f0d0010;
+        public static final int ImageView_MenuHeader=0x7f0d000e;
+        public static final int ImageView_MenuHeader2=0x7f0d000c;
+        public static final int ImageView_MenuHeader2b=0x7f0d0021;
+        public static final int ImageView_MenuHeader_Help=0x7f0d000a;
+        public static final int ImageView_MenuHeader_Score=0x7f0d0017;
+        public static final int ImageView_MenuHeader_Settings=0x7f0d001f;
+        public static final int ListView_Menu=0x7f0d0011;
+        public static final int NicknameLabel=0x7f0d0023;
+        public static final int Password_text=0x7f0d0012;
+        public static final int Password_text2=0x7f0d0014;
         public static final int RelativeLayout01=0x7f0d0000;
-        public static final int RelativeLayout02=0x7f0d0006;
-        public static final int RelativeLayout03=0x7f0d0015;
-        public static final int ScrollViewAllScores=0x7f0d0011;
-        public static final int ScrollViewFriendsScores=0x7f0d0013;
-        public static final int Spinner_Gender=0x7f0d0025;
-        public static final int Tabhost1=0x7f0d0010;
-        public static final int TableLayout01=0x7f0d0028;
-        public static final int TableLayout_AllScores=0x7f0d0012;
-        public static final int TableLayout_FriendsScores=0x7f0d0014;
-        public static final int TextView01=0x7f0d0002;
-        public static final int TextView013=0x7f0d0017;
-        public static final int TextView01_scores=0x7f0d000f;
-        public static final int TextViewBottomTitle=0x7f0d002f;
-        public static final int TextViewBottomVersion=0x7f0d0030;
-        public static final int TextViewTopTitle=0x7f0d0027;
-        public static final int TextView_DOB_Info=0x7f0d0023;
-        public static final int TextView_HelpText=0x7f0d0004;
-        public static final int TextView_Password_Info=0x7f0d0020;
-        public static final int TextView_PwdProblem=0x7f0d000d;
-        public static final int action_settings=0x7f0d0033;
-        public static final int eMailLabel=0x7f0d001c;
-        public static final int help_menu_item=0x7f0d0032;
-        public static final int imageView1=0x7f0d002a;
-        public static final int imageView2=0x7f0d002b;
-        public static final int imageView3=0x7f0d002d;
-        public static final int imageView4=0x7f0d002e;
-        public static final int passwordLabel=0x7f0d001e;
-        public static final int scrollView1=0x7f0d0019;
-        public static final int settings_menu_item=0x7f0d0031;
-        public static final int splash_primarylayout=0x7f0d0026;
-        public static final int tableRow1=0x7f0d0029;
-        public static final int tableRow2=0x7f0d002c;
+        public static final int RelativeLayout02=0x7f0d000f;
+        public static final int RelativeLayout03=0x7f0d001e;
+        public static final int RelativeLayout_Content=0x7f0d0003;
+        public static final int ScrollViewAllScores=0x7f0d001a;
+        public static final int ScrollViewFriendsScores=0x7f0d001c;
+        public static final int Spinner_Gender=0x7f0d002e;
+        public static final int Tabhost1=0x7f0d0019;
+        public static final int TableLayout01=0x7f0d0031;
+        public static final int TableLayout_AllScores=0x7f0d001b;
+        public static final int TableLayout_FriendsScores=0x7f0d001d;
+        public static final int TextSwitcher_QuestionText=0x7f0d0005;
+        public static final int TextView01=0x7f0d000b;
+        public static final int TextView013=0x7f0d0020;
+        public static final int TextView01_scores=0x7f0d0018;
+        public static final int TextViewBottomTitle=0x7f0d0038;
+        public static final int TextViewBottomVersion=0x7f0d0039;
+        public static final int TextViewTopTitle=0x7f0d0030;
+        public static final int TextView_DOB_Info=0x7f0d002c;
+        public static final int TextView_HelpText=0x7f0d000d;
+        public static final int TextView_Password_Info=0x7f0d0029;
+        public static final int TextView_PwdProblem=0x7f0d0016;
+        public static final int action_settings=0x7f0d003c;
+        public static final int eMailLabel=0x7f0d0025;
+        public static final int help_menu_item=0x7f0d003b;
+        public static final int imageView1=0x7f0d0033;
+        public static final int imageView2=0x7f0d0034;
+        public static final int imageView3=0x7f0d0036;
+        public static final int imageView4=0x7f0d0037;
+        public static final int passwordLabel=0x7f0d0027;
+        public static final int scrollView1=0x7f0d0022;
+        public static final int settings_menu_item=0x7f0d003a;
+        public static final int splash_primarylayout=0x7f0d002f;
+        public static final int tableRow1=0x7f0d0032;
+        public static final int tableRow2=0x7f0d0035;
     }
     public static final class layout {
         public static final int game=0x7f030000;
@@ -146,6 +159,8 @@ public final class R {
         public static final int menu_option2_ViewScores=0x7f0a0004;
         public static final int menu_option3_Settings=0x7f0a0005;
         public static final int menu_option4_Help=0x7f0a0006;
+        public static final int no=0x7f0a0025;
+        public static final int no_questions=0x7f0a0026;
         public static final int no_scores=0x7f0a0011;
         public static final int rank=0x7f0a0012;
         public static final int score=0x7f0a0010;
@@ -169,6 +184,7 @@ public final class R {
         public static final int splash_top=0x7f0a0007;
         public static final int splash_version=0x7f0a0009;
         public static final int username=0x7f0a000f;
+        public static final int yes=0x7f0a0024;
     }
     public static final class style {
         /** 
@@ -201,5 +217,7 @@ public final class R {
     public static final class xml {
         public static final int allscores=0x7f050000;
         public static final int friendscores=0x7f050001;
+        public static final int samplequestions=0x7f050002;
+        public static final int samplequestions2=0x7f050003;
     }
 }
