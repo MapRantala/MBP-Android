@@ -182,7 +182,33 @@
                 android:id="@+id/Spinner_Gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-           </Spinner>         
+           </Spinner> 
+           <TextView
+                android:id="@+id/TextView_FavoritePlace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/help_text_size"
+                android:textStyle="bold"
+                android:text="@string/settings_favoriteplace"></TextView>
+            <LinearLayout
+                android:id="@+id/LinearLayout_FavPlace"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent">
+                <Button
+                    android:id="@+id/Button_FavoritePlace"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_button_favoriteplace"></Button>
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:textSize="@dimen/help_text_size"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:id="@+id/TextView_FavoritePlace_Info"
+                    android:text="@string/settings_favoriteplace_not_set"></TextView>
+            </LinearLayout>        
         </LinearLayout>
     </ScrollView>
 

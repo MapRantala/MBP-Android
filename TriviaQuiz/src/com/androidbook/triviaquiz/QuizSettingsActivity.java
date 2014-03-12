@@ -2,6 +2,8 @@ package com.androidbook.triviaquiz;
 
 import java.io.File;
 import java.util.Calendar;
+import java.util.Iterator;
+import java.util.List;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +19,10 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
@@ -39,6 +45,8 @@ import android.widget.Toast;
 
 public class QuizSettingsActivity extends Activity {
 	SharedPreferences mGameSettings;
+	GPSCoords mFavPlaceCoords;
+	
 //	public static final String GAME_PREFERENCES = "GamePrefs";
 //	public static final String GAME_PREFERENCES_NICKNAME = "Nickname";
 //	public static final String GAME_PREFERENCES_EMAIL = "Email";
@@ -47,7 +55,9 @@ public class QuizSettingsActivity extends Activity {
 //	public static final String GAME_PREFERENCES_GENDER = "Gender";
 	static final int DATE_DIALOG_ID = 0;
 	static final int PASSWORD_DIALOG_ID = 1;
-    static final int TAKE_AVATAR_CAMERA_REQUEST = 1;
+	static final int PLACE_DIALOG_ID = 2;
+
+	static final int TAKE_AVATAR_CAMERA_REQUEST = 1;
     static final int TAKE_AVATAR_GALLERY_REQUEST = 2;
 	
 	@Override
@@ -68,7 +78,8 @@ public class QuizSettingsActivity extends Activity {
         initDatePicker();
         // Initialize the spinner
         initGenderSpinner();
-		
+        // Initialize the favorite place picker
+        initFavoritePlacePicker();		
 	}
 
 	  @Override
@@ -272,9 +283,122 @@ public class QuizSettingsActivity extends Activity {
 		}); //pickDate.SetOnClickListener
 	} //private void initDAtePicker
 	
+    /**
+     * Initialize the Favorite Place picker
+     */
+	private void initFavoritePlacePicker(){
+		TextView placeInfo = (TextView) findViewById(R.id.TextView_FavoritePlace_Info);
+		if (mGameSettings.contains(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_FAV_PLACE_NAME)){
+			placeInfo.setText(mGameSettings.getString
+				(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_FAV_PLACE_NAME,""));
+		} else {
+			placeInfo.setText(R.string.settings_favoriteplace_not_set);
+		}
+		Button pickPlace = (Button) findViewById(R.id.Button_FavoritePlace);
+		pickPlace.setOnClickListener(new View.OnClickListener() {			
+			@Override
+			public void onClick(View v) {
+				showDialog(PLACE_DIALOG_ID);
+				
+			}
+		});
+	}
 	@Override
 	protected Dialog onCreateDialog(int id){
 		switch (id) {
+	       case PLACE_DIALOG_ID:
+
+	            LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	            final View dialogLayout = layoutInflater.inflate(R.layout.fav_place_dialog, (ViewGroup) findViewById(R.id.root));
+
+	            final TextView placeCoordinates = (TextView) dialogLayout.findViewById(R.id.TextView_FavPlaceCoords_Info);
+	            final EditText placeName = (EditText) dialogLayout.findViewById(R.id.EditText_FavPlaceName);
+	            placeName.setOnKeyListener(new View.OnKeyListener() {
+
+	                public boolean onKey(View v, int keyCode, KeyEvent event) {
+	                    if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+
+	                        String strPlaceName = placeName.getText().toString();
+	                        if ((strPlaceName != null) && (strPlaceName.length() > 0)) {
+	                            // Try to resolve string into GPS coords
+	                            resolveLocation(strPlaceName);
+
+	                            Editor editor = mGameSettings.edit();
+	                            editor.putString(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_FAV_PLACE_NAME, placeName.getText().toString());
+	                            editor.putFloat(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_FAV_PLACE_LONG, mFavPlaceCoords.mLon);
+	                            editor.putFloat(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_FAV_PLACE_LAT, mFavPlaceCoords.mLat);
+	                            editor.commit();
+
+	                            placeCoordinates.setText(formatCoordinates(mFavPlaceCoords.mLat, mFavPlaceCoords.mLon));
+	                            return true;
+	                        }
+	                    }
+	                    return false;
+	                }
+	            });
+
+	            final Button mapButton = (Button) dialogLayout.findViewById(R.id.Button_MapIt);
+	            mapButton.setOnClickListener(new View.OnClickListener() {
+	                public void onClick(View v) {
+
+	                    // Try to resolve string into GPS coords
+	                    String placeToFind = placeName.getText().toString();
+	                    resolveLocation(placeToFind);
+
+	                    Editor editor = mGameSettings.edit();
+	                    editor.putString(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_FAV_PLACE_NAME, placeToFind);
+	                    editor.putFloat(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_FAV_PLACE_LONG, mFavPlaceCoords.mLon);
+	                    editor.putFloat(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_FAV_PLACE_LAT, mFavPlaceCoords.mLat);
+	                    editor.commit();
+
+	                    placeCoordinates.setText(formatCoordinates(mFavPlaceCoords.mLat, mFavPlaceCoords.mLon));
+
+	                    // Launch map with gps coords
+	                    String geoURI = String.format("geo:%f,%f?z=10", mFavPlaceCoords.mLat, mFavPlaceCoords.mLon);
+	                    Uri geo = Uri.parse(geoURI);
+	                    Intent geoMap = new Intent(Intent.ACTION_VIEW, geo);
+	                    startActivity(geoMap);
+	                }
+	            });
+
+	            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+	            dialogBuilder.setView(dialogLayout);
+
+	            // Now configure the AlertDialog
+	            dialogBuilder.setTitle(R.string.settings_button_favoriteplace);
+
+	            dialogBuilder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+	                public void onClick(DialogInterface dialog, int whichButton) {
+	                    // We forcefully dismiss and remove the Dialog, so it cannot be used again (no cached info)
+	                    QuizSettingsActivity.this.removeDialog(PLACE_DIALOG_ID);
+	                }
+	            });
+
+	            dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+	                public void onClick(DialogInterface dialog, int which) {
+
+	                    TextView placeInfo = (TextView) findViewById(R.id.TextView_FavoritePlace_Info);
+	                    String strPlaceName = placeName.getText().toString();
+
+	                    if ((strPlaceName != null) && (strPlaceName.length() > 0)) {
+	                        Editor editor = mGameSettings.edit();
+	                        editor.putString(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_FAV_PLACE_NAME, strPlaceName);
+	                        editor.putFloat(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_FAV_PLACE_LONG, mFavPlaceCoords.mLon);
+	                        editor.putFloat(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_FAV_PLACE_LAT, mFavPlaceCoords.mLat);
+	                        editor.commit();
+
+	                        placeInfo.setText(strPlaceName);
+	                    }
+
+	                    // We forcefully dismiss and remove the Dialog, so it cannot be used again
+	                    QuizSettingsActivity.this.removeDialog(PLACE_DIALOG_ID);
+	                }
+	            });
+
+	            // Create the AlertDialog and return it
+	            AlertDialog placeDialog = dialogBuilder.create();
+	            return placeDialog;
+	 
 		case DATE_DIALOG_ID:
 			DatePickerDialog dateDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener(){
 				public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth){
@@ -355,7 +479,39 @@ public class QuizSettingsActivity extends Activity {
 	@Override
 	protected void onPrepareDialog(int id, Dialog dialog) {
 		super.onPrepareDialog(id, dialog);
-		switch (id) {
+		switch (id) {     
+			case PLACE_DIALOG_ID:
+
+            // Handle any Favorite Place Dialog initialization here
+            AlertDialog placeDialog = (AlertDialog) dialog;
+
+            String strFavPlaceName;
+
+            // Check for favorite place preference
+            if (mGameSettings.contains(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_FAV_PLACE_NAME)) {
+
+                // Retrieve favorite place from preferences
+                strFavPlaceName = mGameSettings.getString(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_FAV_PLACE_NAME, "");
+                mFavPlaceCoords = new GPSCoords(mGameSettings.getFloat(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_FAV_PLACE_LAT, 0), mGameSettings.getFloat(com.androidbook.triviaquiz.QuizActivity.GAME_PREFERENCES_FAV_PLACE_LONG, 0));
+
+            } else {
+
+                // No favorite place set, set coords to current location
+                strFavPlaceName = getResources().getString(R.string.settings_favplace_currentlocation); // We do not name this place ("here"), but use it as a map point. User can supply the name if
+                // they like
+                calculateCurrentCoordinates();
+
+            }
+
+            // Set the placename text and coordinates either to the saved values, or just set the GPS coords to the current location
+            final EditText placeName = (EditText) placeDialog.findViewById(R.id.EditText_FavPlaceName);
+            placeName.setText(strFavPlaceName);
+
+            final TextView placeCoordinates = (TextView) placeDialog.findViewById(R.id.TextView_FavPlaceCoords_Info);
+            placeCoordinates.setText(formatCoordinates(mFavPlaceCoords.mLat, mFavPlaceCoords.mLon));
+
+            return;
+            
 		case DATE_DIALOG_ID:
 			DatePickerDialog dateDialog = (DatePickerDialog) dialog;
 			int iDay, iMonth, iYear;
@@ -376,7 +532,82 @@ public class QuizSettingsActivity extends Activity {
 			return;
 		} // switch id
 	} // protected void
-	
+    /**
+     * Helper to format coordinates for screen display
+     * 
+     * @param lat
+     * @param lon
+     * @return A string formatted accordingly
+     */
+    private String formatCoordinates(float lat, float lon) {
+        StringBuilder strCoords = new StringBuilder();
+        strCoords.append(lat).append(",").append(lon);
+        return strCoords.toString();
+    }
+    /**
+     * 
+     * If location name can't be deterimed, try to determine location based on current coords
+     * 
+     * @param strLocation
+     *            Location or place name to try
+     */
+    private void resolveLocation(String strLocation) {
+        boolean bResolvedAddress = false;
+
+        if (strLocation.equalsIgnoreCase(getResources().getString(R.string.settings_favplace_currentlocation)) == false) {
+            bResolvedAddress = lookupLocationByName(strLocation);
+        }
+
+        if (bResolvedAddress == false) {
+            // If String place name could not be determined (or matches the string for "current location", assume this is a custom name of the current location
+            calculateCurrentCoordinates();
+        }
+    }	
+    /**
+     * Attempt to get the last known location of the device. Usually this is
+     * the last value that a location provider set
+     */
+    private void calculateCurrentCoordinates() {
+        float lat = 0, lon = 0;
+
+        try {
+            LocationManager locMgr = (LocationManager) getSystemService(LOCATION_SERVICE);
+            Location recentLoc = locMgr.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            lat = (float) recentLoc.getLatitude();
+            lon = (float) recentLoc.getLongitude();
+        } catch (Exception e) {
+            Log.e(com.androidbook.triviaquiz.QuizActivity.DEBUG_TAG, "Location failed", e);
+        }
+
+        mFavPlaceCoords = new GPSCoords(lat, lon);
+    }
+    /**
+     * 
+     * Take a description of a location, store the coordinates in mFavPlaceCoords
+     * 
+     * @param strLocation
+     *            The location or placename to look up
+     * @return true if the address or place was recognized, otherwise false
+     */
+    private boolean lookupLocationByName(String strLocation) {
+        final Geocoder coder = new Geocoder(getApplicationContext());
+        boolean bResolvedAddress = false;
+
+        try {
+
+            List<Address> geocodeResults = coder.getFromLocationName(strLocation, 1);
+            Iterator<Address> locations = geocodeResults.iterator();
+
+            while (locations.hasNext()) {
+                Address loc = locations.next();
+                mFavPlaceCoords = new GPSCoords((float) loc.getLatitude(), (float) loc.getLongitude());
+                bResolvedAddress = true;
+            }
+        } catch (Exception e) {
+            Log.e(com.androidbook.triviaquiz.QuizActivity.DEBUG_TAG, "Failed to geocode location", e);
+        }
+        return bResolvedAddress;
+    }
 	private void initPasswordChooser(){
         // Set password info
         TextView passwordInfo = (TextView) findViewById(R.id.TextView_Password_Info);
@@ -421,4 +652,14 @@ public class QuizSettingsActivity extends Activity {
         });
 
 	}
+	
+    private class GPSCoords {
+        float mLat, mLon;
+
+        GPSCoords(float lat, float lon) {
+            mLat = lat;
+            mLon = lon;
+
+        }
+    }
 }

@@ -1,0 +1,13 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+	<dimen name="splash_fontsize_title">24pt</dimen>
+	<dimen name="splash_fontsize_body">5pt</dimen>
+	<dimen name="splash_spacing">3pt</dimen>
+	<dimen name="menu_item_size">16pt</dimen>
+	<dimen name="score_size">6pt</dimen>
+	<dimen name="game_question_size">12pt</dimen>
+	
+</resources>

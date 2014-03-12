@@ -39,9 +39,16 @@
     <string name="gender_female">Female</string>
     <string name="gender_neutral">Prefer Not To Say</string>
     <string name="set_password_string">Set Password</string>
- 
+    <string name="settings_button_favplace_map">"Map It!"</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="no_questions">No more questions available. Try back later.</string>
+    
+    <string name="settings_favoriteplace">Favorite Place:</string>
+    <string name="settings_favplace_currentlocation">Current Location:</string>
+    <string name="settings_favplace_coords">Coords:</string>
+        
+    <string name="settings_button_favoriteplace">Favorite Place:</string>
+    <string name="settings_favoriteplace_not_set">Not Set</string>    
         
 </resources>
