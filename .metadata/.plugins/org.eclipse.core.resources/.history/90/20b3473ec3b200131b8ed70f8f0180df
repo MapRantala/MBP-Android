@@ -1,0 +1,19 @@
+package com.androidbook.triviaquiz.test;
+
+import android.test.ActivityInstrumentationTestCase2;
+import com.androidbook.triviaquiz.QuizSettingsActivity;
+public class QuizSettingsActivityTests extends
+		ActivityInstrumentationTestCase2<QuizSettingsActivity> {
+
+		public QuizSettingsActivityTests(){
+			super("com.androidbook.triviaquiz.QuizSettinsActivity",QuizSettingsActivity.class);
+			
+		}
+		
+		@Override
+		protected void setUp() throws Exception {
+			super.setUp();
+			final QuizSettingsActivity settingsActivity = getActivity();
+			nickname = (EditText) settingsActivity.findViewById(R.id.EditText_Nickname);
+		}
+}
