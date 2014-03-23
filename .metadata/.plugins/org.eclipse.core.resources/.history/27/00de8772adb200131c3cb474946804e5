@@ -34,18 +34,6 @@ public class QuizWidgetProvider extends AppWidgetProvider {
 		context.startService(serviceIntent);
     }
 	
-    @Override
-    public void onDeleted(Context context, int[] appWidgetIds) {
-        // Note: Ignoring the appWidgetids is safe, but could stop an update for instance
-        // of this app widget if more than one is running. This widget is not designed to be
-        // a multi-instance widget.
-        Intent serviceIntent = new Intent(context, WidgetUpdateService.class);
-        context.stopService(serviceIntent);
-
-        super.onDeleted(context, appWidgetIds);
-
-    }
-    
 	public static class WidgetUpdateService extends Service {
 		Thread widgetUpdateThread = null;
 		private static final String DEBUG_TAG = "WidgetUpdateServices";
@@ -54,10 +42,9 @@ public class QuizWidgetProvider extends AppWidgetProvider {
 		public int onStartCommand(Intent intent, int flags, final int startId){
 			widgetUpdateThread = new Thread() {
 				public void run (){
-					Context context = WidgetUpdateService.this;
 					WidgetData widgetData = new WidgetData("Unknown", "NA", "");
-					widgetData.nickname = "Hey Matt";
-					widgetData.score = "1280";
+					widgetData.nickname = "hello";
+					widgetData.score = "666";
 					
 					String packageName = context.getPackageName();
 					
@@ -84,11 +71,6 @@ public class QuizWidgetProvider extends AppWidgetProvider {
 						Log.e(com.androidbook.triviaquiz.QuizActivity.DEBUG_TAG, "Unable to set launch Intent");
 					}
 
-
-                    if (!WidgetUpdateService.this.stopSelfResult(startId)) {
-                        Log.e(DEBUG_TAG, "Failed to stop service");
-                    }
- 
 				}
 			};
 			widgetUpdateThread.start();

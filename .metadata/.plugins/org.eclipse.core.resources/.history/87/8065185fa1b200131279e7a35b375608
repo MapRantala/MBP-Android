@@ -1,8 +1,0 @@
-package com.androidbook.triviaquiz;
-
-import android.appwidget.AppWidgetProvider;
-
-public class QuizWidgetProvider extends AppWidgetProvider {
-	
-
-}

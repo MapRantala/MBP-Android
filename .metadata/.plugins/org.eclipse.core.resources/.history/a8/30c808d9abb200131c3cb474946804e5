@@ -43,8 +43,5 @@
             	android:resource="@xml/widget_info" />
     	</receiver>
     
-    	<service
-    	    android:name="QuizWidgetProvider$WidgetUpdateService" />
-    	
 	</application>
 </manifest>
