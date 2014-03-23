@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">French Been There, Done That!</string>
+    <string name="help">French Help Screen</string>
+    <string name="menu">French Main Menu</string>
+    <string name="menu_option1_PlayGame">French Play</string>
+    <string name="menu_option2_ViewScores">French View Scores</string>
+    <string name="menu_option3_Settings">French Settings</string>
+    <string name="menu_option4_Help">French Help</string>
+        
+    <string name="splash_top">French Been There</string>
+    <string name="splash_bottom">French Done That!</string>
+    <string name="splash_version">1.0.1\nCopyright 2014a by US</string>
+    <string name="settings">French Settings</string>
+    <string name="game">French Game Screen</string>
+    <string name="scores">French Scores</string>
+    <string name="all_scores">French All</string>
+    <string name="friends_scores">Friends</string>
+    <string name="username">Name</string>
+    <string name="score">Score</string>
+    <string name="no_scores">No Scores Found</string>
+    <string name="rank">Rank</string>
+    
+    <string name="settings_nickname">French Nickname:</string>
+    <string name="settings_email">French Email:</string>
+    <string name="settings_dob">French Birth Date:</string>
+    <string name="settings_dob_not_set">French No Date Set</string>
+    <string name="settings_button_dob">French Pick Date</string>
+    <string name="settings_button_pwd">French Set Password</string>
+    <string name="settings_gender">Gender:</string>
+    <string name="settings_password">Password:</string>
+    <string name="settings_password2">Password (again):</string>
+    <string name="settings_pwd_set">Password Set</string>
+    <string name="settings_pwd_not_set">No Password Set</string>
+    <string name="settings_pwd_not_equal">Passwords do not match, please try again.</string>
+    <string name="settings_pwd_equal">Passwords match.</string>
+    <string name="gender_male">Male</string>
+    <string name="gender_female">Female</string>
+    <string name="gender_neutral">Prefer Not To Say</string>
+    <string name="set_password_string">Set Password</string>
+    <string name="settings_button_favplace_map">"Map It!"</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="no_questions">No more questions available. Try back later.</string>
+    
+    <string name="settings_favoriteplace">Favorite Place:</string>
+    <string name="settings_favplace_currentlocation">Current Location:</string>
+    <string name="settings_favplace_coords">Coords:</string>
+        
+    <string name="settings_button_favoriteplace">Favorite Place:</string>
+    <string name="settings_favoriteplace_not_set">Not Set</string>    
+        
+</resources>
