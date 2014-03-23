@@ -7,7 +7,6 @@
     <uses-sdk
         android:minSdkVersion="7"
         android:targetSdkVersion="19" />
-    <permission></permission>
 
     <application
         android:allowBackup="true"
@@ -32,6 +31,17 @@
             android:name="com.androidbook.triviaquiz.QuizScoresActivity"> </activity>
         <activity
             android:name="com.androidbook.triviaquiz.QuizSettingsActivity"> </activity>
-    </application>
 
+    	<receiver
+        	android:name="QuizWidgetProvider">
+        	<intent-filter>
+            	<action
+                	android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+        	</intent-filter>
+        	<meta-data
+            	android:name="android.appwidget.provider"
+            	android:resource="@xml/widget_info" />
+    	</receiver>
+    
+	</application>
 </manifest>

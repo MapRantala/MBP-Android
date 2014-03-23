@@ -50,17 +50,18 @@ public final class R {
         public static final int splash_spacing=0x7f090004;
     }
     public static final class drawable {
-        public static final int bkgrnd=0x7f020000;
-        public static final int divider=0x7f020001;
-        public static final int half=0x7f020002;
-        public static final int ic_launcher=0x7f020003;
-        public static final int noquestion=0x7f020004;
-        public static final int quizicon=0x7f020005;
-        public static final int splash1=0x7f020006;
-        public static final int splash2=0x7f020007;
-        public static final int splash3=0x7f020008;
-        public static final int splash4=0x7f020009;
-        public static final int textured=0x7f02000a;
+        public static final int avatar=0x7f020000;
+        public static final int bkgrnd=0x7f020001;
+        public static final int divider=0x7f020002;
+        public static final int half=0x7f020003;
+        public static final int ic_launcher=0x7f020004;
+        public static final int noquestion=0x7f020005;
+        public static final int quizicon=0x7f020006;
+        public static final int splash1=0x7f020007;
+        public static final int splash2=0x7f020008;
+        public static final int splash3=0x7f020009;
+        public static final int splash4=0x7f02000a;
+        public static final int textured=0x7f02000b;
     }
     public static final class id {
         public static final int Birthdatelabel=0x7f0d0031;
@@ -109,6 +110,7 @@ public final class R {
         public static final int TextView01=0x7f0d0011;
         public static final int TextView013=0x7f0d0026;
         public static final int TextView01_scores=0x7f0d001e;
+        public static final int TextView02=0x7f0d0048;
         public static final int TextViewBottomTitle=0x7f0d0043;
         public static final int TextViewBottomVersion=0x7f0d0044;
         public static final int TextViewTopTitle=0x7f0d003b;
@@ -121,9 +123,9 @@ public final class R {
         public static final int TextView_HelpText=0x7f0d0013;
         public static final int TextView_Password_Info=0x7f0d0030;
         public static final int TextView_PwdProblem=0x7f0d001c;
-        public static final int action_settings=0x7f0d0047;
+        public static final int action_settings=0x7f0d004c;
         public static final int eMailLabel=0x7f0d002c;
-        public static final int help_menu_item=0x7f0d0046;
+        public static final int help_menu_item=0x7f0d004b;
         public static final int imageView1=0x7f0d003e;
         public static final int imageView2=0x7f0d003f;
         public static final int imageView3=0x7f0d0041;
@@ -131,10 +133,14 @@ public final class R {
         public static final int passwordLabel=0x7f0d002e;
         public static final int root=0x7f0d0000;
         public static final int scrollView1=0x7f0d0028;
-        public static final int settings_menu_item=0x7f0d0045;
+        public static final int settings_menu_item=0x7f0d004a;
         public static final int splash_primarylayout=0x7f0d003a;
         public static final int tableRow1=0x7f0d003d;
         public static final int tableRow2=0x7f0d0040;
+        public static final int widget_image=0x7f0d0046;
+        public static final int widget_nickname=0x7f0d0047;
+        public static final int widget_score=0x7f0d0049;
+        public static final int widget_view=0x7f0d0045;
     }
     public static final class layout {
         public static final int fav_place_dialog=0x7f030000;
@@ -146,6 +152,7 @@ public final class R {
         public static final int scores=0x7f030006;
         public static final int settings=0x7f030007;
         public static final int splash=0x7f030008;
+        public static final int widget=0x7f030009;
     }
     public static final class menu {
         public static final int gameoptions=0x7f0c0000;
@@ -239,5 +246,6 @@ public final class R {
         public static final int friendscores=0x7f050001;
         public static final int samplequestions=0x7f050002;
         public static final int samplequestions2=0x7f050003;
+        public static final int widget_info=0x7f050004;
     }
 }

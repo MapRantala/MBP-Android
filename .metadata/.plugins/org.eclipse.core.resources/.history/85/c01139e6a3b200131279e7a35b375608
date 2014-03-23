@@ -1,0 +1,74 @@
+package com.androidbook.triviaquiz;
+
+import android.app.Service;
+import android.appwidget.AppWidgetManager;
+import android.appwidget.AppWidgetProvider;
+import android.content.Context;
+import android.content.Intent;
+import android.os.IBinder;
+
+public class QuizWidgetProvider extends AppWidgetProvider {
+
+	@Override
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        // push this to a Service so it runs in the background
+        // We can't use a thread because the Provider may not remain around
+        // (Don't forget to add the service entry to the Manifest)
+
+        Intent serviceIntent = new Intent(context, WidgetUpdateService.class);
+        context.startService(serviceIntent);        
+
+    }
+	
+	public static class WidgetUpdateService extends Service {
+
+		@Override
+		public IBinder onBind(Intent intent) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+		private void getWidgetData(WidgetData widgetData) {
+			
+		}
+		
+	}
+	public static class WidgetData {
+        String nickname;
+        String score;
+        String avatarUrl;
+
+        public WidgetData(String nickname, String score, String avatarUrl) {
+            super();
+            this.nickname = nickname;
+            this.score = score;
+            this.avatarUrl = avatarUrl;
+        }
+
+        public String getNickname() {
+            return nickname;
+        }
+
+        public void setNickname(String nickname) {
+            this.nickname = nickname;
+        }
+
+        public String getScore() {
+            return score;
+        }
+
+        public void setScore(String score) {
+            this.score = score;
+        }
+
+        public String getAvatarUrl() {
+            return avatarUrl;
+        }
+
+        public void setAvatarUrl(String avatarUrl) {
+            this.avatarUrl = avatarUrl;
+        }
+    }
+
+
+}

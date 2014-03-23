@@ -1,0 +1,5 @@
+package com.androidbook.triviaquiz;
+
+public class QuizWidgetProvider {
+
+}
