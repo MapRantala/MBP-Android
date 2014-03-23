@@ -41,7 +41,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -88,8 +87,6 @@ public class QuizSettingsActivity extends Activity {
         ScoreDownloaderTask allScoresDownloader = new ScoreDownloaderTask();
         ScoresTable allScoresTable;
         allScoresDownloader.execute(TRIVIA_SERVER_SCORES, allScoresTable);
-        
-        Share
 	}
 
 	  @Override

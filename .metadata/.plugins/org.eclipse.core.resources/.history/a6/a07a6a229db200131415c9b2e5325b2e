@@ -88,8 +88,6 @@ public class QuizSettingsActivity extends Activity {
         ScoreDownloaderTask allScoresDownloader = new ScoreDownloaderTask();
         ScoresTable allScoresTable;
         allScoresDownloader.execute(TRIVIA_SERVER_SCORES, allScoresTable);
-        
-        Share
 	}
 
 	  @Override
